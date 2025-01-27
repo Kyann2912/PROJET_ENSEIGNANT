@@ -113,6 +113,18 @@
       text-align: center;
       margin-top: 10px;
     }
+
+    .eye-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .password-container {
+      position: relative;
+    }
   </style>
 </head>
 
@@ -146,12 +158,25 @@
           <option value="professeur">Professeur</option>
         </select>
         <label for="password">Mot de Passe</label>
-        <input type="password" class="form-control" name="password" id="password" >
+        <div class="password-container">
+          <input type="password" class="form-control" name="password" id="password" >
+          <i class="fas fa-eye eye-icon" id="toggle-password"></i>
+        </div>
         <a href="/mot/passe" class="forgot-password">Mot de Passe Oublié ?</a>
         <input type="submit" value="Connexion">
       </form>
     </div>
   </div>
+
+  <script>
+    document.getElementById('toggle-password').addEventListener('click', function() {
+      var passwordField = document.getElementById('password');
+      var type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+      this.classList.toggle('fa-eye-slash');
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

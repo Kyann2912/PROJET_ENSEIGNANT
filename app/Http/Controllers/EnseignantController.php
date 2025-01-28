@@ -208,6 +208,10 @@ class EnseignantController extends Controller
     public function supprimer_filiere($id){
         $filieres = Filiere :: find($id);
         $filieres->delete();
+        $suppression = new Statistique ();
+        $suppression->filiere_supprimer = 0;
+        $suppression->filiere_supprimer +=1;
+        $suppression->save();
         return redirect('/liste-filieres')->with('supprimer','Filière supprimer avec succès');
 
     }
@@ -215,6 +219,10 @@ class EnseignantController extends Controller
     public function supprimer_occupation($id){
         $occupation = Salle :: find($id);
         $occupation->delete();
+        $suppression = new Statistique ();
+        $suppression->occupation_supprimer = 0;
+        $suppression->occupation_supprimer +=1;
+        $suppression->save();
         return redirect('/liste-occupations')->with('supprimer','Occupation supprimer avec succès');
 
     }
@@ -434,6 +442,11 @@ class EnseignantController extends Controller
         $filiere->nom_filiere = $request->nom_filiere;
         $filiere->responsable = $request->responsable;
         $filiere->update();
+        $suppression = new Statistique ();
+        $suppression->filiere_modifier = 0;
+        $suppression->filiere_modifier +=1;
+        $suppression->save();
+        
     
         return redirect('/liste-filieres')->with('modifier', 'Filière modifiée avec succès');
     }
@@ -464,6 +477,10 @@ class EnseignantController extends Controller
         $occupation->heure = $request->heure;
         $occupation->date_occupation = $request->date_occupation;
         $occupation-> update();
+        $suppression = new Statistique ();
+        $suppression->occupation_modifier = 0;
+        $suppression->occupation_modifier +=1;
+        $suppression->save();
         return redirect('/liste-occupations')->with('modifier', 'Occupation modifiée avec succès');
     }
 
@@ -638,6 +655,10 @@ class EnseignantController extends Controller
     public function supprimer_paiement($id){
         $paiement = Paiement::find($id);
         $paiement->delete();
+        $suppression = new Statistique ();
+        $suppression->paiement_supprimer = 0;
+        $suppression->paiement_supprimer +=1;
+        $suppression->save();
         return redirect('/liste-paiements')->with('vie','Paiement supprimer avec succès');
     }
 
@@ -673,6 +694,10 @@ class EnseignantController extends Controller
             $paiement->montant_heure = $request->montant_heure;
             $paiement->montant_total = $total;
             $paiement->save();
+            $suppression = new Statistique ();
+            $suppression->paiement_modifier = 0;
+            $suppression->paiement_modifier +=1;
+            $suppression->save();
         
             return redirect('/liste-paiements')->with('success', 'Paiement modifié avec succès');
         } catch (\Exception $e) {
@@ -714,6 +739,10 @@ class EnseignantController extends Controller
     public function supprimer_emploi($id){
         $supprimer = Emploi_temps::find($id);
         $supprimer->delete();
+        $suppression = new Statistique ();
+        $suppression->emploi_supprimer = 0;
+        $suppression->emploi_supprimer +=1;
+        $suppression->save();
         return redirect('liste-emplois')->with('sms','Emploi du temps supprimé avec succès');
 
 
@@ -754,6 +783,14 @@ class EnseignantController extends Controller
     
         // Sauvegarder les modifications
         $emploi->update();
+        $suppression = new Statistique ();
+        $suppression->emploi_modifier = 0;
+        $suppression->emploi_modifier +=1;
+        $suppression->save();
+        $suppression = new Statistique ();
+        $suppression->emploi_modifier = 0;
+        $suppression->emploi_modifier +=1;
+        $suppression->save();
     
         // Redirection avec message de succès
         return redirect('/liste-emplois')->with('reine', 'Emploi du temps modifié avec succès.');
@@ -831,6 +868,11 @@ public function paiementsProfesseur()
     
 
         }
+        $suppression = new Statistique ();
+        $suppression->utilisateur_modifier = 0;
+        $suppression->utilisateur_modifier +=1;
+        $suppression->save();
+        
     
         return redirect('/liste-utilisateurs')->with('yanno','Utilisateur modifié avec succès');
     }

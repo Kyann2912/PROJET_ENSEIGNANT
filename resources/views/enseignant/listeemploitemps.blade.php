@@ -24,11 +24,6 @@
         </div>
         <br>
         <table class="table">
-        @if(session('reine'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('reine') }}
-            </div>
-        @endif
         @if(session('yao'))
             <div class="alert alert-success" role="alert" style="margin:20px;">
                 {{ session('yao') }}

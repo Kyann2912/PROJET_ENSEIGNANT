@@ -19,19 +19,14 @@ class Paiement extends Model
         'id_professeur',  // La clé étrangère liée à l'utilisateur (professeur)
     ];
 
-    /**
-     * Relation : Un paiement appartient à un utilisateur.
-     */
-    // public function professeur()
-    // {
-    //     return $this->belongsTo(User::class, 'id_professeur'); // 'id_professeur' est la clé étrangère
-    // }
-
 
     public function professeur()
-{
-    return $this->belongsTo(Professeur::class, 'id_professeur');
-}
+    {
+        return $this->belongsTo(Professeur::class, 'id_professeur');
+    }
+    
+
+
 
 
 }

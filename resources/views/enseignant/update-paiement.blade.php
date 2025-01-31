@@ -40,7 +40,7 @@
                 <label for="">Nbre-Heures</label> <br>
                 <input type="text" class="form-control"  name="nbre_heures" id="nbre_heures" value="{{ $paiement->nbre_heures }}"><br>
                 <label for="">Montant</label> <br>
-                <input type="text" class="form-control"  name="montant" id="montant" value="10000" ><br>
+                <input type="text" class="form-control"  name="montant_heure" id="montant_heure" value="10000" ><br>
                 <br>
                 <button class="X" type="submit">Modifier</button>
             </form>

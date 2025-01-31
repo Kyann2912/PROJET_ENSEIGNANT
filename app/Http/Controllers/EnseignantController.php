@@ -236,16 +236,19 @@ class EnseignantController extends Controller
         $nom = $user->name;
         $prenoms = $user->prenoms;
         $email = $user->email;
+
+        $nbrePaiements = $user->professeur->paiements->count();
+
         $emplois = Emploi_temps::where('email', $user->email)->get();
         $nbre = $emplois->count();
 
         $data = [
-            'labels'=> ['paiement','emploi','message',],
-            'values'=> [$nbre,$nbre,$nbre]
+            'labels'=> ['paiement','emploi'],
+            'values'=> [$nbrePaiements,$nbre]
         ];
 
 
-        return view('enseignant.professeur',compact('nom','prenoms','nbre','data'));
+        return view('enseignant.professeur',compact('nom','prenoms','nbre','data','nbrePaiements'));
     }
 
     public function N(){
@@ -668,7 +671,7 @@ class EnseignantController extends Controller
     }
 
 
-    public function update_paiement(Request $request){
+    public function AJ(Request $request){
 
         $request->validate([
             'id_professeur'=>'required',
@@ -708,6 +711,57 @@ class EnseignantController extends Controller
 
 
     }
+    public function update_paiement(Request $request)
+    {
+        $request->validate([
+            'id_professeur' => 'required',
+            'filiere_niveau' => 'required',
+            'cours' => 'required',
+            'nbre_heures' => 'required|numeric',
+            'montant_heure' =>'required|numeric',
+        ]);
+
+        try {
+        // Vérification de l'existence du paiement
+            $paiement = Paiement::find($request->id);
+
+            if (!$paiement) {
+                return redirect('/liste-paiements')->with('error', 'Paiement introuvable.');
+            }
+
+        // Calcul du montant total
+            $total = $request->nbre_heures * $request->montant_heure;
+
+        // Mise à jour des données
+            $paiement->id_professeur = $request->id_professeur;
+            $paiement->filiere_niveau = $request->filiere_niveau;
+            $paiement->cours = $request->cours;
+            $paiement->nbre_heures = $request->nbre_heures;
+            $paiement->montant_heure = $request->montant_heure; // Correction du champ
+            $paiement->montant_total = $total;
+            $paiement->save();
+            $suppression = new Statistique ();
+            $suppression->paiement_modifier = 0;
+            $suppression->paiement_modifier +=1;
+            $suppression->save();
+
+        // Mise à jour de la statistique
+            $statistique = Statistique::first(); // Récupère la première ligne existante
+            if ($statistique) {
+                $statistique->paiement_modifier += 1;
+                $statistique->save();
+            } else {
+                $statistique = new Statistique();
+                $statistique->paiement_modifier = 1;
+                $statistique->save();
+            }
+
+            return redirect('/liste-paiements')->with('success', 'Paiement modifié avec succès');
+        } catch (\Exception $e) {
+            return redirect('/liste-paiements')->with('error', 'Erreur : ' . $e->getMessage());
+        }
+    }
+
 
 
     public function Télécgarger_emploi_temps()
@@ -805,20 +859,17 @@ class EnseignantController extends Controller
 
 
 
+    public function paiementsProfesseur()
+    {
+        $user = Auth::user();
 
-public function paiementsProfesseur()
-{
+        $paiements = $user->professeur->paiements;
+    
+        return view('enseignant.professeur-paiement', compact('paiements'));
 
-    $user = Auth::user();
-
-
-    $paiements = Paiement::where('id_professeur', $user->id_professeur)->get();
-
-
-    return view('enseignant.professeur-paiement', compact('paiements'));
-
-
-}
+    }
+    
+    
 
     public  function modifier($id){
 
@@ -925,6 +976,30 @@ public function paiementsProfesseur()
 
 
     }
+
+    
+    public function liste_paiement()
+    {
+        $user = Auth::user();
+    
+        // Récupération des paiements associés à l'enseignant
+        $paiements = $user->professeur->paiements;
+        
+        // Formatage de la date actuelle
+        $date = Carbon::now()->format('d-m-Y'); 
+        $pdf = Pdf::loadView('Enseignant.professeur-paiement-liste',compact('paiements','date'));
+
+        // Génération du PD
+    
+        // Téléchargement du fichier PDF
+        return $pdf->download('Paiement_Enseignant_'.$date.'.pdf');
+
+
+    }
+    
+
+
+
 
 
     

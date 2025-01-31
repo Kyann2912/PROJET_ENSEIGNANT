@@ -21,9 +21,8 @@
             <img src="font/P.jpg" alt="" width="30px" style="margin-top:0px; margin-left:4px;">
             <a href="{{ route('professeur.paiements') }}">MES PAIEMENTS</a>
             <br><br>
+            <img src="font/pass.jpeg" alt="" width="30px" style="margin-top:0px; margin-left:4px;">
             <a href="/professeur/password">MODIFIER MON MOT DE PASSE</a>
-            <br><br>
-            <a href="/message">CONTACTER L'ADMINISTRATION</a>
             <br><br>
             <br>
             <div class="logout">
@@ -33,16 +32,13 @@
         <div class="B">
             <div class="MM">
                 <p>PAIEMENTS</p>
-                <h1 class="user-count" style="color:green">{{ $nbre }}</h1>
+                <h1 class="user-count" style="color:green">{{ $nbrePaiements }}</h1>
             </div>
             <div class="MA">
                 <p>EMPLOI DU TEMPS</p>
                 <h1 class="user-count" style="color:green">{{ $nbre }}</h1>
             </div>
-            <div class="MB">
-                <p>CONTACT ADMINISTRATION</p>
-                <h1 class="user-count" style="color:green">{{ $nbre }}</h1>
-            </div>
+
             <div class="stat">
             <div style="width: 620px;height: 340px; margin-left: -350px; margin-top:-140px; ">
                 <canvas id="myPieChart"></canvas> 
@@ -84,7 +80,7 @@
     .A{
         padding-left: 0px;
         background-color: aliceblue;
-        width: 350px;
+        width: 390px;
         height: 551px;
     }
 
@@ -157,7 +153,7 @@
     text-align: center;
     font-family: Times, serif;
     margin-top: 5px;
-    margin-left:10px;
+    margin-left:90px;
     display: inline-block;
     padding: 10px;
     border: 2px solid rgba(3, 114, 250, 0.3);
@@ -174,7 +170,7 @@
     text-align: center;
     font-family: Times, serif;
     margin-top: 5px;
-    margin-left:10px;
+    margin-left:90px;
     display: inline-block;
     padding: 10px;
     border: 2px solid rgba(3, 114, 250, 0.3);

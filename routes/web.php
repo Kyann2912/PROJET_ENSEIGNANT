@@ -174,6 +174,8 @@ Route::post('/emploi/modifier', [EnseignantController::class, 'modifier_traiteme
 
 Route :: get('/rapport',[EnseignantController::class,'pdf']);
 
+Route :: get('/impression',[EnseignantController::class,'liste_paiement']);
+
 
 Route::get('/télécharger/emploi', [EnseignantController::class, 'Télécgarger_emploi_temps']);
 

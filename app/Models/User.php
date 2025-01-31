@@ -26,31 +26,34 @@ class User extends Authenticatable
         'password',
     ];
 
-    //relation avec le modèle professeur
-    public function professeur(){
-        return $this->hasOne(Professeur :: class);
+    // Relation avec le modèle Professeur (un utilisateur peut être un professeur)
+    public function professeur()
+    {
+        return $this->hasOne(Professeur::class, 'id_user'); // 'id_user' est la clé étrangère dans la table professeurs
     }
 
-
-
-    //relation avec le modèle administrateur
-    public function administrateur(){
-        return $this->hasOne(Administrateur :: class);
+    // Relation avec le modèle Administrateur
+    public function administrateur()
+    {
+        return $this->hasOne(Administrateur::class);
     }
 
-    //recupérer les admin
-
-    public function isAdmin(){
+    // Vérifie si l'utilisateur est un administrateur
+    public function isAdmin()
+    {
         return $this->role === 'admin';
     }
 
-    public function isProfesseur(){
+    // Vérifie si l'utilisateur est un professeur
+    public function isProfesseur()
+    {
         return $this->role === 'professeur';
     }
 
+    // Relation pour récupérer tous les paiements d'un professeur
     public function paiements()
     {
-        return $this->hasMany(Paiement::class, 'id_professeur'); // Assurez-vous que 'id_professeur' correspond bien à la clé étrangère dans la table 'paiements'.
+        return $this->hasOne(Professeur::class, 'id_user')->with('paiements'); // On récupère les paiements via la relation avec Professeur
     }
 
     /**

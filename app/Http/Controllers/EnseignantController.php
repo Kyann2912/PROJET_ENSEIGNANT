@@ -212,7 +212,7 @@ class EnseignantController extends Controller
         $suppression->filiere_supprimer = 0;
         $suppression->filiere_supprimer +=1;
         $suppression->save();
-        return redirect('/liste-filieres')->with('supprimer','Filière supprimer avec succès');
+        return redirect('/liste-filieres')->with('supprimer','Filière supprimée avec succès');
 
     }
 
@@ -223,7 +223,7 @@ class EnseignantController extends Controller
         $suppression->occupation_supprimer = 0;
         $suppression->occupation_supprimer +=1;
         $suppression->save();
-        return redirect('/liste-occupations')->with('supprimer','Occupation supprimer avec succès');
+        return redirect('/liste-occupations')->with('supprimer','Occupation supprimée avec succès');
 
     }
 
@@ -313,7 +313,7 @@ class EnseignantController extends Controller
 
 
 
-        return redirect('/liste-occupations')->with('message','Occupation ajouter avec succès');
+        return redirect('/liste-occupations')->with('message','Occupation ajoutée avec succès');
 
         }
 
@@ -357,7 +357,7 @@ class EnseignantController extends Controller
             $paiement->save();
 
     
-            return redirect('/liste-paiements')->with('message','Paiement ajouter avec succès')->withInput([]);
+            return redirect('/liste-paiements')->with('message','Paiement ajouté avec succès')->withInput([]);
 
         }
 
@@ -394,7 +394,7 @@ class EnseignantController extends Controller
     
 
     
-            return redirect('/liste-filieres')->with('message','Filière ajouter avec succès')->withInput([]);
+            return redirect('/liste-filieres')->with('message','Filière ajouté avec succès')->withInput([]);
 
         }
 
@@ -647,6 +647,8 @@ class EnseignantController extends Controller
         $emploi_modifier = Statistique::sum('emploi_modifier');
         $occupation_supprimer = Statistique::sum('occupation_supprimer');
         $occupation_modifier = Statistique::sum('occupation_modifier');
+        $occupation_ajouter = Statistique::sum('occupation_ajouter');
+
         $date = Carbon::now()->format('d-m-Y'); 
         $pdf = Pdf::loadView('Enseignant.rapport',compact('utilisateur','salle','filiere','paiement','emploi','uti_supprimer','date','uti_modifier','paiement_supprimer', 'paiement_modifier', 'filiere_supprimer','filiere_modifier', 'emploi_supprimer', 'emploi_modifier', 'occupation_supprimer', 'occupation_modifier'));
         $date = Carbon::now()->format('Y-m-d  H:i:s'); 
@@ -662,7 +664,7 @@ class EnseignantController extends Controller
         $suppression->paiement_supprimer = 0;
         $suppression->paiement_supprimer +=1;
         $suppression->save();
-        return redirect('/liste-paiements')->with('vie','Paiement supprimer avec succès');
+        return redirect('/liste-paiements')->with('vie','Paiement supprimé avec succès');
     }
 
     public function modifier_paiement($id){
@@ -868,7 +870,6 @@ class EnseignantController extends Controller
         return view('enseignant.professeur-paiement', compact('paiements'));
 
     }
-    
     
 
     public  function modifier($id){

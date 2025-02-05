@@ -14,14 +14,19 @@ return new class extends Migration
         Schema::create('statistiques', function (Blueprint $table) {
             $table->id();
             $table->integer('utilisateur_supprimer');
+            $table->integer('utilisateur_ajouter');
             $table->integer('utilisateur_modifier');
             $table->integer('paiement_supprimer');
+            $table->integer('paiement_ajouter');
             $table->integer('paiement_modifier');
             $table->integer('filiere_supprimer');
+            $table->integer('filiere_ajouter');
             $table->integer('filiere_modifier');
             $table->integer('emploi_supprimer');
+            $table->integer('emploi_ajouter');
             $table->integer('emploi_modifier');
             $table->integer('occupation_supprimer');
+            $table->integer('occupation_ajouter');
             $table->integer('occupation_modifier');
             $table->timestamps();
         });

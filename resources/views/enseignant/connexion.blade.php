@@ -132,7 +132,7 @@
   <div class="container-login">
     <!-- Left Panel -->
     <div class="left-panel">
-      <h1>Hello Friend</h1>
+      <h1>G-TEACHER</h1>
       <p>Entrez vos coordonnées personnelles et commencez votre voyage avec nous.</p>
       @error('email','password')
       <div class="alert alert-danger" role="alert">

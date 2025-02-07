@@ -133,7 +133,9 @@
     <!-- Left Panel -->
     <div class="left-panel">
       <h1>G-TEACHER</h1>
-      <p>Entrez vos coordonnées personnelles et commencez votre voyage avec nous.</p>
+      <p>© Copyright 2025. All rights Reserved.</p><br>
+      <p>Made by Yann Kouakou</p>
+
       @error('email','password')
       <div class="alert alert-danger" role="alert">
         {{ $message }}

@@ -70,9 +70,10 @@ class EnseignantController extends Controller
         $emploi->fin = $request->input('fin');
         $emploi->save();
         Mail :: to($request->email)->send(new Emploi);
-
-
-
+        $suppression = new Statistique ();
+        $suppression->emploi_ajouter = 0;
+        $suppression->emploi_ajouter +=1;
+        $suppression->save();
 
         return redirect('/liste-emplois')->with('yann', 'Emploi du temps ajouté avec succès');
 
@@ -310,7 +311,11 @@ class EnseignantController extends Controller
         $occupation->date_occupation = $request->date_occupation;
 
         $occupation->save();
-
+        $suppression = new Statistique ();
+        $suppression->occupation_ajouter = 0;
+        $suppression->occupation_ajouter +=1;
+        $suppression->save();
+        
 
 
         return redirect('/liste-occupations')->with('message','Occupation ajoutée avec succès');
@@ -355,6 +360,10 @@ class EnseignantController extends Controller
             $paiement->id_professeur = $request->id_professeur;
     
             $paiement->save();
+            $suppression = new Statistique ();
+            $suppression->paiement_ajouter = 0;
+            $suppression->paiement_ajouter +=1;
+            $suppression->save();
 
     
             return redirect('/liste-paiements')->with('message','Paiement ajouté avec succès')->withInput([]);
@@ -391,6 +400,11 @@ class EnseignantController extends Controller
             $filiere->nom_filiere = $request->nom_filiere;
             $filiere->responsable = $request->responsable;
             $filiere-> save();
+
+            $suppression = new Statistique ();
+            $suppression->filiere_ajouter = 0;
+            $suppression->filiere_ajouter +=1;
+            $suppression->save();
     
 
     
@@ -535,6 +549,11 @@ class EnseignantController extends Controller
             }
             $user->save();
 
+            $suppression = new Statistique ();
+            $suppression->utilisateur_ajouter = 0;
+            $suppression->utilisateur_ajouter +=1;
+            $suppression->save();
+
 
     
         if ($user->role === 'admin') {
@@ -621,13 +640,23 @@ class EnseignantController extends Controller
         $emploi_modifier = Statistique::sum('emploi_modifier');
         $occupation_supprimer = Statistique::sum('occupation_supprimer');
         $occupation_modifier = Statistique::sum('occupation_modifier');
+        $occupation_ajouter = Statistique::sum('occupation_ajouter');
+        $utilisateur_ajouter = Statistique::sum('utilisateur_ajouter');
+        $paiement_ajouter = Statistique::sum('paiement_ajouter');
+        $filiere_ajouter = Statistique::sum('filiere_ajouter');
+        $emploi_ajouter = Statistique::sum('emploi_ajouter');
+
+
+
+
+
         
         $filiere = Filiere::count();
         $utilisateur =  User::count();
         $paiement = Paiement::count();
         $emploi =  Emploi_temps::count();
         $salle = Salle::count();
-        return view('enseignant.audit',compact('filiere','utilisateur','paiement','emploi','salle','uti_supprimer','uti_modifier','paiement_supprimer', 'paiement_modifier', 'filiere_supprimer','filiere_modifier', 'emploi_supprimer', 'emploi_modifier', 'occupation_supprimer', 'occupation_modifier'));
+        return view('enseignant.audit',compact('filiere','utilisateur','paiement','emploi','salle','uti_supprimer','uti_modifier','paiement_supprimer', 'paiement_modifier', 'filiere_supprimer','filiere_modifier', 'emploi_supprimer', 'emploi_modifier', 'occupation_supprimer', 'occupation_modifier','utilisateur_ajouter','paiement_ajouter','filiere_ajouter','emploi_ajouter','occupation_ajouter'));
     }
 
 
@@ -648,9 +677,18 @@ class EnseignantController extends Controller
         $occupation_supprimer = Statistique::sum('occupation_supprimer');
         $occupation_modifier = Statistique::sum('occupation_modifier');
         $occupation_ajouter = Statistique::sum('occupation_ajouter');
+        $utilisateur_ajouter = Statistique::sum('utilisateur_ajouter');
+        $occupation_ajouter = Statistique::sum('occupation_ajouter');
+        $utilisateur_ajouter = Statistique::sum('utilisateur_ajouter');
+        $paiement_ajouter = Statistique::sum('paiement_ajouter');
+        $filiere_ajouter = Statistique::sum('filiere_ajouter');
+        $emploi_ajouter = Statistique::sum('emploi_ajouter');
+
+
+        // utilisateur_ajouter
 
         $date = Carbon::now()->format('d-m-Y'); 
-        $pdf = Pdf::loadView('Enseignant.rapport',compact('utilisateur','salle','filiere','paiement','emploi','uti_supprimer','date','uti_modifier','paiement_supprimer', 'paiement_modifier', 'filiere_supprimer','filiere_modifier', 'emploi_supprimer', 'emploi_modifier', 'occupation_supprimer', 'occupation_modifier'));
+        $pdf = Pdf::loadView('Enseignant.rapport',compact('utilisateur','salle','filiere','paiement','emploi','uti_supprimer','date','uti_modifier','paiement_supprimer', 'paiement_modifier', 'filiere_supprimer','filiere_modifier', 'emploi_supprimer', 'emploi_modifier', 'occupation_supprimer', 'occupation_modifier','utilisateur_ajouter','paiement_ajouter','filiere_ajouter','emploi_ajouter','occupation_ajouter'));
         $date = Carbon::now()->format('Y-m-d  H:i:s'); 
         // le PDF télécharger
         return $pdf->download('Audit'.$date.'.pdf');

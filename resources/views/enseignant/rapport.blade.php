@@ -105,35 +105,35 @@
                 <tbody>
                     <tr>
                         <td>Gestion des Utilisateurs</td>
-                        <td></td>
+                        <td>{{ $utilisateur_ajouter }}</td>
                         <td>{{ $utilisateur }}</td>
                         <td>{{ $uti_modifier }}</td>
                         <td>{{ $uti_supprimer }}</td>
                     </tr>
                     <tr>
                         <td>Gestion des Occupations</td>
-                        <td></td>
+                        <td>{{ $occupation_ajouter }}</td>
                         <td>{{ $salle }}</td>
                         <td>{{ $occupation_modifier }}</td>
                         <td>{{ $occupation_supprimer }}</td>
                     </tr>
                     <tr>
                         <td>Gestion des Filières</td>
-                        <td></td>
+                        <td>{{ $filiere_ajouter }}</td>
                         <td>{{ $filiere }}</td>
                         <td>{{ $filiere_modifier }}</td>
                         <td>{{ $filiere_supprimer }}</td>
                     </tr>
                     <tr>
                         <td>Gestion des Paiements</td>
-                        <td></td>
+                        <td>{{ $paiement_ajouter }}</td>
                         <td>{{ $paiement }}</td>
                         <td>{{ $paiement_modifier }}</td>
                         <td>{{ $paiement_supprimer }}</td>
                     </tr>
                     <tr>
                         <td>Gestion des Emplois du Temps</td>
-                        <td></td>
+                        <td>{{ $emploi_ajouter }}</td>
                         <td>{{ $emploi }}</td>
                         <td>{{ $emploi_modifier }}</td>
                         <td>{{ $emploi_supprimer }}</td>

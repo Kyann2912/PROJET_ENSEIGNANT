@@ -57,7 +57,7 @@
     <div class="container-custom">
         <div class="left-panel">
             <h1 class="fw-bold">Mot de Passe Oublié ?</h1>
-            <p>Pas de panique ! Entrez votre email pour recevoir un nouveau mot de passe.</p>
+            <p>Pas de panique ! Entrez votre email pour récupérer un nouveau mot de passe.</p>
         </div>
         <div class="right-panel">
             <h2 class="text-center fw-bold">Récupération</h2>

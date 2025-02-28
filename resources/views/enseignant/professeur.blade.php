@@ -9,41 +9,67 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <div class="Tout">
-        <div class="A">
-            <h1>Tableau de Bord</h1>
-            <img src="font/Image.jpg" alt="" width="60px">
-            <p class="nom">{{ $nom }} {{ $prenoms }}</p>
-            <br><br>
-            <img src="font/E.jpg" alt="" width="30px" style="margin-top:0px; margin-left:4px;">
-            <a href="/professeur-emploi">EMPLOI DU TEMPS</a>
-            <br><br>
-            <img src="font/P.jpg" alt="" width="30px" style="margin-top:0px; margin-left:4px;">
-            <a href="{{ route('professeur.paiements') }}">MES PAIEMENTS</a>
-            <br><br>
-            <img src="font/pass.jpeg" alt="" width="30px" style="margin-top:0px; margin-left:4px;">
-            <a href="/professeur/password">MODIFIER MON MOT DE PASSE</a>
-            <br><br>
-            <br>
-            <div class="logout">
-                <a href="/deconnexion/utilisateur">DECONNEXION</a>
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1>Tableau de Bord</h1> <br>
+            
+            <!-- User Icon and Name -->
+            <div class="user-info">
+                <i class="fas fa-user" style="font-size: 20px; margin-right: 10px;"></i>
+                <p class="nom" style="margin-top:20px;">{{ $nom }} {{ $prenoms }}</p>
             </div>
-        </div>
-        <div class="B">
-            <div class="MM">
-                <p>PAIEMENTS</p>
-                <h1 class="user-count" style="color:green">{{ $nbrePaiements }}</h1>
-            </div>
-            <div class="MA">
-                <p>EMPLOI DU TEMPS</p>
-                <h1 class="user-count" style="color:green">{{ $nbre }}</h1>
+            <br><br>
+
+            <!-- Links with icons -->
+            <div class="sidebar-links">
+                <a href="/professeur-emploi">
+                    <i class="fas fa-calendar-alt" style="font-size: 20px;"></i> EMPLOI DU TEMPS
+                </a>
+                <br><br>
+                <a href="{{ route('professeur.paiements') }}">
+                    <i class="fas fa-credit-card" style="font-size: 20px;"></i> MES PAIEMENTS
+                </a>
+                <br><br>
+                <a href="/professeur/password">
+                    <i class="fas fa-key" style="font-size: 20px;"></i> MODIFIER MON MOT DE PASSE
+                </a>
+                <br><br>
             </div>
 
-            <div class="stat">
-            <div style="width: 620px;height: 340px; margin-left: -350px; margin-top:-140px; ">
-                <canvas id="myPieChart"></canvas> 
-            </div>
+            <!-- Deconnexion Button -->
+
         </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="header">
+                <h1>Bienvenue sur le tableau de bord</h1>
+            </div>
+            <div class="logout">
+                <a href="/deconnexion/utilisateur">
+                    <i class="fas fa-sign-out-alt" style="font-size: 20px;"></i> DECONNEXION
+                </a>
+            </div>
+            <br>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <p>PAIEMENTS</p>
+                    <h1 class="user-count" style="color:green">{{ $nbrePaiements }}</h1>
+                </div>
+                <div class="stat-box">
+                    <p>EMPLOI DU TEMPS</p>
+                    <h1 class="user-count" style="color:green">{{ $nbre }}</h1>
+                </div>
+            </div>
+
+            <div class="charts">
+                <div class="chart-container">
+                    <h3>Répartition des Données</h3>
+                    <canvas id="myPieChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -64,147 +90,173 @@
                 }]
             }
         });
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
+
   <style>
-    body{
-        margin: 0px;
-        padding: 0px;
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
     }
-    .Tout{
+
+    .container-fluid {
         display: flex;
     }
-    .A{
-        padding-left: 0px;
-        background-color: aliceblue;
-        width: 390px;
-        height: 551px;
-    }
 
-
-    .A h1{
-        margin-left: 30px;
-        font-family:  Times, serif;
-        font-weight: bold;
-        font-size: 35px;
-
-    }
-    .A select{
-        margin-left: 40px;
-        width: 290px;
-        height: 40px;
-        font-family:  Times, serif;
-
-
-
-    }
-    .A a{
-        padding: 5px;
-        font-family:  Times, serif;
-        font-size: 20px;
-        line-height: 2.5;
-        text-decoration: none;
-        font-weight: bold;
-        margin-left:5px ;
-
-    }
-    .X:hover {
-        background-color: blanchedalmond;
-        color: black;
-
-    }
-    .B a{
-        background-color:rgb(4, 238, 234) ;
-        color:white;
-        border: 1px solid;
-        border-radius: 5px;
-
-    }
-
-    hr{
-        border: 2px solid;
-        margin-left: 0px;
-        font-weight: bold;
-    }
-    .logout a{
-        background-color: rgba(145, 2, 2, 0.827);
+    .sidebar {
+        background-color: #2c3e50;
         color: white;
-        width: 200px;
-        border-radius: 5px;
+        width: 250px;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
 
-    .nom{
-        position: fixed;
-        margin-left:80px;
-        font-family:  Times, serif;
+    .sidebar h1 {
+        font-size: 24px;
+        color: #ecf0f1;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .user-info i {
         font-size: 20px;
-        margin-top:-45px;
+        color: #ecf0f1;
+    }
+
+    .nom {
+        font-size: 18px;
+        color: #ecf0f1;
         font-weight: bold;
     }
-    img{
-        border-radius:15px;
 
+    .sidebar-links a {
+        display: block;
+        color: #ecf0f1;
+        text-decoration: none;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-size: 18px;
     }
 
-      .MM {
-    text-align: center;
-    font-family: Times, serif;
-    margin-top: 5px;
-    margin-left:90px;
-    display: inline-block;
-    padding: 10px;
-    border: 2px solid rgba(3, 114, 250, 0.3);
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    color: rgba(68, 107, 155, 0.99);
-    font-size: 24px;
-    font-weight: bold;
-    height: 110px;
-  }
-
-
-  .MA {
-    text-align: center;
-    font-family: Times, serif;
-    margin-top: 5px;
-    margin-left:90px;
-    display: inline-block;
-    padding: 10px;
-    border: 2px solid rgba(3, 114, 250, 0.3);
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    color: rgba(68, 107, 155, 0.99);
-    font-size: 24px;
-    font-weight: bold;
-    height: 110px;
-  }
-
-  .stat {
-        margin-left: 350px; 
-        padding-left: 280px;
-        margin-top: 200px;
-        position: fixed;
-        padding-bottom: 20px;
-        box-shadow: 24cm;
+    .sidebar-links a:hover {
+        background-color: #34495e;
     }
 
-  .MB {
-    text-align: center;
-    font-family: Times, serif;
-    margin-top: 5px;
-    margin-left:10px;
-    display: inline-block;
-    padding: 10px;
-    border: 2px solid rgba(3, 114, 250, 0.3);
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    color: rgba(68, 107, 155, 0.99);
-    font-size: 24px;
-    font-weight: bold;
-    height: 110px;
-  }
+    .content {
+        margin-left: 250px;
+        flex: 1;
+        padding: 30px;
+        overflow-y: auto;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+        color: #2c3e50;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .stat-box {
+        background-color: #fff;
+        padding: 20px;
+        width: 48%;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-box p {
+        font-size: 18px;
+        color: #7f8c8d;
+    }
+
+    .stat-box h1 {
+        font-size: 36px;
+        color: #2c3e50;
+    }
+
+    .charts {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .chart-container {
+        width: 48%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modification pour le bouton de déconnexion */
+    .logout {
+        margin-top: -70px;
+        clear: both;
+        text-align: right;
+    }
+
+    .logout a {
+        display: inline-block;
+        background-color: #e74c3c;
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .logout a:hover {
+        background-color: #c0392b;
+    }
+
+    @media (max-width: 992px) {
+        .stat-box {
+            width: 48%;
+        }
+
+        .chart-container {
+            width: 100%;
+        }
+
+        .charts {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 200px;
+        }
+
+        .stat-box {
+            width: 100%;
+        }
+
+        .charts {
+            flex-direction: column;
+        }
+    }
   </style>
 </html>

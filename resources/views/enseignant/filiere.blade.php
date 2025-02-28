@@ -3,170 +3,158 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Ajouter une Filière</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9179c9d0f1.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
     <div class="Tout">
+        <!-- Section A -->
         <div class="A">
             <h1>Ajouter une Filière</h1>
             <br>
             <form action="/filiere/store" method="POST">
                 @csrf
                 <label for="departement">Département</label> <br>
-                <input type="text" class="form-control"  name="departement" id="departement"><br>
+                <input type="text" class="form-control" name="departement" id="departement"><br>
                 <label for="nom_filiere">Nom-Filière</label> <br>
-                <input type="text" class="form-control"  name="nom_filiere" id="nom_filiere"><br>
+                <input type="text" class="form-control" name="nom_filiere" id="nom_filiere"><br>
                 <label for="responsable">Responsable</label> <br>
-                <input type="text" class="form-control"  name="responsable" id="responsable"><br>
+                <input type="text" class="form-control" name="responsable" id="responsable"><br>
                 <br>
                 <button class="X" type="submit">Ajouter</button>
             </form>
         </div>
+
+        <!-- Section B -->
         <div class="B">
             @error('departement')
                 <div class="alert alert-danger" role="alert" style="margin:20px;">
-                {{ $message }}
+                    {{ $message }}
                 </div>
             @enderror
             @error('nom_filiere')
                 <div class="alert alert-danger" role="alert" style="margin:20px;">
-                {{ $message }}
+                    {{ $message }}
                 </div>
             @enderror
             @error('responsable')
                 <div class="alert alert-danger" role="alert" style="margin:20px;">
-                {{ $message }}
+                    {{ $message }}
                 </div>
             @enderror
             <br>
-            <br>
-            <!-- <h1 style="margin-top: 200px;font-weight: bold;">Welcome Admin !</h1> -->
-            <p>Vous voullez consulter la liste des filières ajoutés ?</p>
-            <a href="/liste-filieres">Consulter</a> 
-            <!-- <a href="">Dashboard</a> -->
-    
+            <p>Vous voulez consulter la liste des filières ajoutées ?</p>
+            <a href="/liste-filieres" class="btn btn-info">Consulter</a>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
+
   <style>
-    body{
-        margin: 0px;
-        padding: 0px;
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fc;
     }
-    .Tout{
+
+    .Tout {
         display: flex;
+        justify-content: space-between;
+        padding: 40px;
     }
-    .A{
-        margin-left: 0px;
-        padding-left: 20px;
+
+    .A {
+        width: 45%;
         background-color: aliceblue;
-        width: 630px;
-        height: 551px;
-
-        /* height: 600px; */
-        margin-bottom: 0px;
-        line-height: 1.1;
-    }
-    .B{
-        font-family:  Times, serif;
-        width: 670px;
-        background-color: blanchedalmond;
-        padding-left: 20px;
-
-
-    }
-    .B a{
-        text-decoration: none;
-        width: 200px;
-        height: 30px;
-        border: 1px solid;
-        padding: 5px;
-        border-radius: 3px;
-        border-color: rgb(4, 238, 234);
-        color: rgb(4, 238, 234);
-        margin-left: 250px;
-        font-family:  Times, serif;
-        font-size: 20px;
-    }
-    .B h1{
-            font-size: 50px;
-            margin-left: 90px;
-        }
-    .B p{
-        font-size: 20px;
-        font-weight: bold;
-        margin-left: 100px;
-
-    }
-    .A label{
-        margin-left: 40px;
-        font-family:  Times, serif;
-        font-size: 20px;
-
-    }
-    .A input{
-        margin-left: 40px;
-        width: 290px;
-        font-family:  Times, serif;
-
-    }
-    .A h1{
-        margin-bottom: 20px;
-        margin-left: 80px;
-        font-family:  Times, serif;
-        font-weight: bold;
-
-    }
-    .A select{
-        margin-left: 40px;
-        width: 290px;
-        height: 40px;
-        font-family:  Times, serif;
-
-
-
-    }
-    .X{
-        width: 200px;
-        height: 40px;
-        border: 1px solid;
-        padding: 5px;
+        padding: 30px;
         border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .A h1 {
+        font-family: 'Times New Roman', serif;
+        font-weight: bold;
+        color: rgb(4, 238, 234);
+    }
+
+    .A label {
+        font-family: 'Times New Roman', serif;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .A input, .A select {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+    }
+
+    .A input:focus, .A select:focus {
         border-color: rgb(4, 238, 234);
-        /* color: rgb(4, 238, 234); */
-        background-color:rgb(4, 238, 234) ;
+        box-shadow: 0 0 5px rgba(4, 238, 234, 0.7);
+    }
+
+    .X {
+        width: 100%;
+        padding: 12px;
+        background-color: rgb(4, 238, 234);
         color: white;
-        font-family:  Times, serif;
-        font-size: 20px;
-        margin-left: 50px;
-
-        /* margin-left: */
-
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
     }
+
     .X:hover {
-        /* background-color: blue; */
+        background-color: #36e1d3;
+    }
+
+    .B {
+        width: 45%;
         background-color: blanchedalmond;
-        color: black;
-
-    }
-    .B a{
-        background-color:rgb(4, 238, 234) ;
-        color:white;
-        border: 1px solid;
-        border-radius: 5px;
-
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
+    .B p {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
+    .B .btn-info {
+        background-color: rgb(4, 238, 234);
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        transition: background-color 0.3s;
+    }
 
+    .B .btn-info:hover {
+        background-color: #36e1d3;
+    }
 
+    @media (max-width: 768px) {
+        .Tout {
+            flex-direction: column;
+            padding: 20px;
+        }
 
-
-
-    </style>
+        .A, .B {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+  </style>
 </html>

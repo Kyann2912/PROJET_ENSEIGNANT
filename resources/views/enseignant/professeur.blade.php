@@ -38,11 +38,10 @@
             </div>
 
             <!-- Deconnexion Button -->
-
         </div>
 
         <!-- Main Content -->
-        <div class="content">
+        <div class="content" id="content">
             <div class="header">
                 <h1>Bienvenue sur le tableau de bord</h1>
             </div>
@@ -74,6 +73,39 @@
     </div>
 
     <script>
+        // Initialisation de l'animation d'entrée pour le contenu principal
+        window.onload = function() {
+            document.getElementById('content').style.opacity = 1;
+        };
+
+        // Animation des cartes de statistiques
+        const stats = document.querySelectorAll('.stat-box');
+        window.addEventListener('scroll', function() {
+            stats.forEach(function(stat) {
+                const position = stat.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (position < windowHeight - 100) {
+                    stat.style.opacity = 1;
+                    stat.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Animation des graphiques
+        const charts = document.querySelectorAll('.chart-container');
+        window.addEventListener('scroll', function() {
+            charts.forEach(function(chart) {
+                const position = chart.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (position < windowHeight - 100) {
+                    chart.style.opacity = 1;
+                    chart.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
         // Données partagées
         const labels = @json($data['labels']);
         const values = @json($data['values']);
@@ -160,6 +192,8 @@
         flex: 1;
         padding: 30px;
         overflow-y: auto;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
     }
 
     .header {
@@ -184,6 +218,9 @@
         text-align: center;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .stat-box p {
@@ -207,6 +244,9 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     /* Modification pour le bouton de déconnexion */
@@ -258,5 +298,9 @@
             flex-direction: column;
         }
     }
+    .logout a:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
+      }
   </style>
 </html>

@@ -3,137 +3,198 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Liste des Occupations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9179c9d0f1.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
-    <div class="Tout">
-        <div class="A">
-            <br>
-            <h1>LISTE DES OCCCUPATIONS</h1>
+    <div class="container-fluid">
+        <div class="A mt-5 mb-4">
+            <h1 class="text-center text-primary">LISTE DES OCCUPATIONS</h1>
             <hr>
-            <a href="/occupation" class="btn btn-success" style="width: 350px;margin-left: 10px; height: 40px;">AJOUTER UNE OCCCUPATION</a>
-            <a href="tableau" class="btn btn-success" style="width: 150px;margin-left: 60px; height: 40px;">DASHBOARD</a>
-            <a href="/pdf_salle" class="btn btn-success" style="width: 150px;margin-left: 60px; height: 40px;">TELECHARGER</a>
 
+            <!-- Section de gestion des occupations -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="/occupation" class="btn btn-success">AJOUTER UNE OCCUPATION</a>
+                <a href="tableau" class="btn btn-warning">DASHBOARD</a>
+                <a href="/pdf_salle" class="btn btn-info">TÉLÉCHARGER</a>
+            </div>
+
+            <!-- Notifications de session -->
+            @if(session('message'))
+                <div class="alert alert-success" role="alert">{{ session('message') }}</div>
+            @endif
+            @if(session('supprimer'))
+                <div class="alert alert-danger" role="alert">{{ session('supprimer') }}</div>
+            @endif
+            @if(session('reine'))
+                <div class="alert alert-info" role="alert">{{ session('reine') }}</div>
+            @endif
+            @if(session('modifier'))
+                <div class="alert alert-info" role="alert">{{ session('modifier') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+            @endif
+
+            <!-- Tableau des occupations -->
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom-Salle</th>
+                            <th>Occupation</th>
+                            <th>Date</th>
+                            <th>Heures</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $yann = 1; @endphp
+                        @foreach($occupations as $occupation)
+                        <tr>
+                            <td>{{ $yann }}</td>
+                            <td>{{ $occupation->nom_salle }}</td>
+                            <td>{{ $occupation->occupation }}</td>
+                            <td>{{ $occupation->date_occupation }}</td>
+                            <td>{{ $occupation->heure }}</td>
+                            <td>
+                                <a href="/modifier/occupation/{{ $occupation->id }}" class="btn btn-info btn-sm">MODIFIER</a>
+                                <a href="/supprimer/occupation/{{ $occupation->id }}" class="btn btn-danger btn-sm">SUPPRIMER</a>
+                            </td>
+                        </tr>
+                        @php $yann++; @endphp
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <br>
-        <table class="table">
-        @if(session('message'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('message') }}
-            </div>
-        @endif
-        @if(session('supprimer'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('supprimer') }}
-            </div>
-        @endif
-        @if(session('reine'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('reine') }}
-            </div>
-        @endif
-        @if(session('modifier'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('modifier') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-success" role="alert" style="margin:20px;">
-                {{ session('error') }}
-            </div>
-        @endif
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom-Salle</th>
-                    <th>Occupation</th>
-                    <th>Date</th>
-                    <th>Heures</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $yann = 1;
-                @endphp
-                @foreach($occupations as $occupation)
-                 <tr>
-                  <td>{{  $yann  }}</td>
-                  <td>{{  $occupation->nom_salle  }}</td>
-                  <td>{{  $occupation->occupation  }}</td>
-                  <td>{{  $occupation->date_occupation  }}</td>
-                  <td>{{  $occupation->heure  }}</td>
-                  <td><a href="/modifier/occupation/{{ $occupation->id }}" class="btn btn-info">MODIFIER</a> <a href="/supprimer/occupation/{{  $occupation->id  }}" class="btn btn-danger">SUPPRIMER</a></td>
-                </tr>
-                @php
-                    $yann++;
-                @endphp
-                @endforeach
-
-
-
-            </tbody>
-        </table>
-
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
   <style>
-    body{
-        margin: 0px;
-        padding: 0px;
-        background-color: blanchedalmond;
-        font-family:  Times, serif;
-
-
-    }
-    .table th{
-        background-color: blanchedalmond;
-
-    }
-    .table{
-        color: white;
-        margin-left: 10px;
-        position: fixed;
-
-    }
-    .table td{
-        background-color: blanchedalmond;
-        font-size: 18px;
-
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fc;
     }
 
-    .A h1{
-        margin-bottom: 20px;
-        margin-left: 500px;
-        font-family:  Times, serif;
+    .A {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .A h1 {
+        font-family: 'Times New Roman', serif;
+        font-size: 28px;
         font-weight: bold;
-        font-size: 20px;
-        margin-bottom: 10px;
-
-    }
-    .A a{
-        text-decoration: none;
-        width: 200px;
-        height: 30px;
-        border: 1px solid;
-        padding: 3px;
-        border-radius: 3px;
-        border-color: rgb(4, 238, 234);
-        color: black;
-        margin-left: 490px;
-        font-family:  Times, serif;
-        font-size: 20px;
-        background-color: white;
+        color: rgb(4, 238, 234);
+        text-align: center;
     }
 
+    .A .btn {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
 
+    .A .btn:hover {
+        opacity: 0.8;
+    }
 
+    .A .btn-success {
+        background-color: #28a745;
+        border: 1px solid #28a745;
+    }
 
+    .A .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 
-    </style>
+    .A .btn-warning {
+        background-color: #ffc107;
+        border: 1px solid #ffc107;
+    }
+
+    .A .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+    .A .btn-info {
+        background-color: #17a2b8;
+        border: 1px solid #17a2b8;
+    }
+
+    .A .btn-info:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+    }
+
+    .A .btn-danger {
+        background-color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+
+    .A .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    .table {
+        margin-top: 30px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        color: #343a40;
+        font-weight: bold;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .table-responsive {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+        .A {
+            padding: 20px;
+        }
+
+        .A h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .table th, .table td {
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 200px;
+        }
+    }
+  </style>
 </html>

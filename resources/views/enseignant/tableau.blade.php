@@ -58,6 +58,8 @@
         flex: 1;
         padding: 30px;
         overflow-y: auto;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
       }
 
       .header {
@@ -89,6 +91,9 @@
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
       }
 
       .stat-box h2 {
@@ -115,6 +120,9 @@
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
       }
 
       .logout {
@@ -169,10 +177,6 @@
         }
       }
 
-      .content{
-        /* position:fixed; */
-      }
-
     </style>
   </head>
   <body>
@@ -193,12 +197,12 @@
       </div>
 
       <!-- Content -->
-      <div class="content">
+      <div class="content" id="content">
         <div class="header">
           <h1>Bienvenue sur le tableau de bord</h1>
         </div>
 
-        <div class="stats">
+        <div class="stats" id="stats">
           <div class="stat-box">
             <h2>{{ $utilisateur }}</h2>
             <p>Utilisateurs</p>
@@ -222,11 +226,11 @@
         </div>
 
         <div class="charts">
-          <div class="chart-container">
+          <div class="chart-container" id="chart1">
             <h3>Répartition des Données</h3>
             <canvas id="myPieChart"></canvas>
           </div>
-          <div class="chart-container">
+          <div class="chart-container" id="chart2">
             <h3>Évolution des Données</h3>
             <canvas id="myLineChart"></canvas>
           </div>
@@ -241,6 +245,39 @@
     </div>
 
     <script>
+      // Initialisation de l'animation d'entrée pour le contenu principal
+      window.onload = function() {
+        document.getElementById('content').style.opacity = 1;
+      };
+
+      // Animation des cartes de statistiques
+      const stats = document.querySelectorAll('.stat-box');
+      window.addEventListener('scroll', function() {
+        stats.forEach(function(stat) {
+          const position = stat.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+
+          if (position < windowHeight - 100) {
+            stat.style.opacity = 1;
+            stat.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      // Animation des graphiques
+      const charts = document.querySelectorAll('.chart-container');
+      window.addEventListener('scroll', function() {
+        charts.forEach(function(chart) {
+          const position = chart.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+
+          if (position < windowHeight - 100) {
+            chart.style.opacity = 1;
+            chart.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
       // Données partagées
       const labels = @json($data['labels']);
       const values = @json($data['values']);

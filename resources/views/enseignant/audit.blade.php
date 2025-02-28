@@ -10,59 +10,138 @@
       body {
         margin: 0;
         padding: 0;
-        /* background-color: blanchedalmond; */
-        font-family: 'Times New Roman', Times, serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7fa; /* Couleur de fond moderne */
+        animation: fadeIn 2s ease-out; /* Animation de fondu du body */
       }
 
-      .yann a{
-        margin-left:80px;
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .container {
+        padding: 20px;
       }
 
       h1 {
         text-align: center;
-        font-weight: bold;
+        font-weight: 700;
+        font-size: 32px;
+        color: #2c3e50; /* Couleur de texte */
         margin-top: 40px;
-        font-size: 24px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards; /* Animation de fondu pour le titre */
       }
 
       hr {
-        width: 80%;
+        width: 90%;
         margin: 0 auto;
-        border: 1px solid #000;
-        margin-left:30px;
+        border: 1px solid #ddd;
       }
 
       .table-container {
-        margin: 20px auto;
+        margin: 30px auto;
         width: 90%;
         overflow-x: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        animation: slideUp 1s ease-out 1s forwards; /* Animation de glissement pour la table */
+      }
+
+      @keyframes slideUp {
+        0% {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease; /* Transition pour la table */
       }
 
       th, td {
         border: 1px solid #ddd;
-        padding: 12px;
+        padding: 15px;
         text-align: left;
         font-size: 16px;
+        color: #34495e;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Animation pour les cellules */
       }
 
       th {
-        background-color: #f2f2f2;
-        font-weight: bold;
+        background-color: #ecf0f1;
+        font-weight: 600;
       }
 
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
 
+      /* Animation de survol des lignes de tableau */
+      tr:hover {
+        background-color: #3498db; /* Couleur bleue lorsque la ligne est survolée */
+        color: white; /* Texte blanc sur la ligne survolée */
+        transform: scale(1.02); /* Légère animation de zoom */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .yann a {
+        margin-left: 20px;
+        transition: transform 0.3s ease; /* Animation des boutons */
+      }
+
+      .yann a:hover {
+        transform: translateY(-5px); /* Légère animation de montée au survol des boutons */
+      }
+
+      .btn {
+        font-weight: 600;
+        border-radius: 5px;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+      }
+
+      .btn-danger:hover {
+        background-color: #c0392b;
+        transform: scale(1.05); /* Légère animation de zoom au survol du bouton */
+      }
+
+      .btn-dark {
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+      }
+
+      .btn-dark:hover {
+        background-color: #34495e;
+        transform: scale(1.05); /* Légère animation de zoom au survol du bouton */
+      }
 
       .footer {
         text-align: center;
         margin-top: 40px;
         font-size: 16px;
+        color: #7f8c8d;
       }
     </style>
 
@@ -73,13 +152,11 @@
   <body>
 
     <!-- Contenu principal -->
-
     <div class="container">
         <header class="A">
-            <h1 style="color:blue";>AUDIT DES ACTIVITES SUR LA PLATEFORME</h1>
-            <hr style="margin-left:20px";>
+            <h1>AUDIT DES ACTIVITES SUR LA PLATEFORME</h1>
+            <hr>
         </header>
-        <br>
 
         <!-- Tableau des Activités -->
         <div class="table-container">
@@ -132,9 +209,12 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="yann"> 
-        <a href="/rapport" class="btn btn-danger" style="margin-lef:100px";>TELECHAGER LE RAPPORT</a> <a href="/tableau" class="btn btn-dark">TABLEAU DE BORD</a>
+
+        <!-- Liens supplémentaires -->
+        <div class="yann text-center">
+            <a href="/rapport" class="btn btn-danger">TÉLÉCHARGER LE RAPPORT</a>
+            <a href="/tableau" class="btn btn-dark">TABLEAU DE BORD</a>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
